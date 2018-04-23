@@ -1,37 +1,51 @@
 package com.scott.annie.login_spinner;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class third extends AppCompatActivity {
 
+    TextView name,mail,phone,state,city;
+    Button back;
+    Integer stringPostion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_third);
-        TextView usernm, pwd, city,phnum;
-        SharedPreferences pref;
+        setContentView(R.layout.activity_third2);
 
-        usernm =  (TextView)findViewById(R.id.ed1);
-        pwd=  (TextView)findViewById(R.id.ed2);
-        city =  (TextView)findViewById(R.id.ed3);
-        phnum =  (TextView)findViewById(R.id.ed4);
-        pref=getSharedPreferences("pref", Context.MODE_PRIVATE);
-        if (pref.contains("username")){
-            usernm.setText(pref.getString("name","dafault"));
-        }if (pref.contains("password")){
-            pwd.setText(pref.getString("password","default"));
-        }if (pref.contains("city")){
-            city.setText(pref.getString("city","default"));
-        }
-            if (pref.contains("phonenumber")){
-                phnum.setText(pref.getString("phonenumber","default"));
+        name=findViewById(R.id.namelabel);
+        mail=findViewById(R.id.maillabel);
+        phone=findViewById(R.id.phonelabel);
+        state=findViewById(R.id.statelabel);
+        city=findViewById(R.id.citylabel);
+        back=findViewById(R.id.submitback);
+        stringPostion=Integer.parseInt(getIntent().getStringExtra("state_position"));
+
+        Log.d("TEST",stringPostion+"");
+        name.setText(getIntent().getStringExtra("name"));
+        mail.setText(getIntent().getStringExtra("mail"));
+        phone.setText(getIntent().getStringExtra("phone"));
+        state.setText(getIntent().getStringExtra("state"));
+        city.setText(getIntent().getStringExtra("city"));
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(third.this,signup.class);
+                intent.putExtra("name2",name.getText().toString());
+                intent.putExtra("mail2",mail.getText().toString());
+                intent.putExtra("phone2",phone.getText().toString());
+                intent.putExtra("city2",city.getText().toString());
+                intent.putExtra("string_position",stringPostion);
+                startActivity(intent);
             }
-
+        });
 
     }
 }
-
