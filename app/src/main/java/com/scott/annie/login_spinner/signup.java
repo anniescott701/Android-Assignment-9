@@ -24,6 +24,8 @@ public class signup extends AppCompatActivity {
     Integer state_position;
     SharedPreferences preferences;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
